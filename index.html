@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velocity AI - Smart Websites + Automation for Small Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #02050d;
+      --surface: #0a1428;
+      --surface-2: #0e1c36;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, 0.14);
+      --brand: #11389c;
+      --brand-2: #0d2566;
+      --accent: #4a7fe0;
+      --max: 1040px;
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: "Manrope", sans-serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .bg-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+
+    .ambient-glow.a {
+      width: 560px;
+      height: 560px;
+      left: 45%;
+      top: 8%;
+      background: radial-gradient(circle, rgba(17, 56, 156, 0.2), transparent 70%);
+    }
+
+    .ambient-glow.b {
+      width: 420px;
+      height: 420px;
+      right: -12%;
+      bottom: 10%;
+      background: radial-gradient(circle, rgba(74, 127, 224, 0.18), transparent 70%);
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s ease, backdrop-filter 0.2s ease, border-color 0.2s ease;
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(2, 5, 13, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .top-header {
+      border-bottom: 0;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+    }
+
+    .top-header .container {
+      padding: 0.35rem 0 0.15rem;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+      gap: 1rem;
+    }
+
+    .logo {
+      text-decoration: none;
+      font-weight: 800;
+      font-family: "Manrope", sans-serif;
+      font-size: 1.25rem;
+      color: #f8fafc;
+    }
+
+    .logo span { color: #8cb5ff; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .nav-links a:hover { color: #ffffff; }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.88rem 1.45rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--brand) 0%, var(--brand-2) 100%);
+      color: #fff;
+      box-shadow: 0 12px 34px rgba(11, 95, 255, 0.28);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: #e2e8f0;
+      background: #09162d;
+    }
+
+    section { padding: 5.2rem 0; }
+
+    .hero {
+      padding-top: 9rem;
+      padding-bottom: 7rem;
+      text-align: center;
+    }
+
+    #services {
+      padding-top: 6.8rem;
+    }
+
+    .hero-wrap {
+      display: block;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-copy {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #c7d9ff;
+      background: rgba(17, 56, 156, 0.22);
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5.4rem);
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #c4d4ff 45%, #6f97ea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      max-width: 52ch;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3.2rem;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.65rem, 4.8vw, 2.6rem);
+      margin-bottom: 0.45rem;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 66ch;
+      margin: 0 auto;
+    }
+
+    .switch-section .container {
+      max-width: 1040px;
+    }
+
+    .switch-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 0.9rem;
+      align-items: stretch;
+      width: 100%;
+      background: #05080f;
+      border: 1px solid #1d2638;
+      border-radius: 20px;
+      padding: 0.9rem;
+    }
+
+    #start .switch-wrap {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1rem;
+    }
+
+    .switch-copy {
+      background: transparent;
+      border: 0;
+      border-radius: 14px;
+      padding: 1rem 0.9rem 1rem 0.7rem;
+    }
+
+    .switch-copy h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .switch-copy h3 {
+      font-size: clamp(1.8rem, 4.8vw, 4rem);
+      line-height: 1.02;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.03em;
+      color: #f4f7ff;
+    }
+
+    #start .switch-copy h3 {
+      font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      max-width: 22ch;
+    }
+
+    .switch-copy p {
+      color: var(--muted);
+      max-width: 50ch;
+      font-size: 0.98rem;
+    }
+
+    .switch-cta {
+      margin-top: 1.2rem;
+    }
+
+    .switch-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+      margin: 1rem 0 1.1rem;
+      max-width: 320px;
+    }
+
+    .switch-list li {
+      color: #d7e3fa;
+      font-size: 0.92rem;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .switch-list li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .switch-meta {
+      color: #9db7e7;
+      font-size: 0.86rem;
+      margin-top: 0.7rem;
+    }
+
+    .switch-media {
+      background: #0a1222;
+      border: 1px solid #243047;
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .switch-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .switch-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    #start .switch-highlights {
+      grid-template-columns: 1fr;
+    }
+
+    .highlight-item {
+      background: #08162e;
+      border: 1px solid #24416f;
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.7rem;
+      align-items: start;
+    }
+
+    .highlight-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid #35598f;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 1rem;
+      background: #0b1d3b;
+    }
+
+    .highlight-item strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 0.95rem;
+      line-height: 1.12;
+      margin-bottom: 0.1rem;
+    }
+
+    .highlight-item span {
+      color: #9fb3d2;
+      font-size: 0.8rem;
+      line-height: 1.2;
+    }
+
+    #start {
+      padding-top: 4rem;
+      padding-bottom: 2.6rem;
+    }
+
+    #services {
+      padding-top: 5.8rem;
+    }
+
+    .services-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .services-top {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 0.7rem;
+      align-items: stretch;
+      margin-bottom: 1rem;
+    }
+
+    .services-intro-block {
+      background: #08162e;
+      border: 1px solid #24416f;
+      border-radius: 14px;
+      padding: 1.15rem 1.2rem;
+    }
+
+    .services-intro-block h2 {
+      font-size: clamp(2rem, 4.8vw, 3.4rem);
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.03em;
+    }
+
+    .services-intro-block p {
+      color: var(--muted);
+      max-width: 38ch;
+      margin-bottom: 1rem;
+      line-height: 1.55;
+    }
+
+    .services-actions {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.9rem;
+    }
+
+    .services-image {
+      background: #0a1222;
+      border: 1px solid #243047;
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 300px;
+      max-height: 360px;
+      width: 100%;
+      justify-self: stretch;
+    }
+
+    .services-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    #about {
+      padding-top: 5.8rem;
+      padding-bottom: 5.8rem;
+    }
+
+    .about-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .about-media {
+      background: #d6d9df;
+      border: 1px solid #243047;
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    .about-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: none;
+    }
+
+    .about-content {
+      padding: 0.2rem 0.2rem 0.2rem 0.4rem;
+    }
+
+    .about-content h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .about-content p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    .about-divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      margin: 1rem 0;
+    }
+
+    .about-actions {
+      margin-bottom: 1rem;
+    }
+
+    .services-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .service-card {
+      background: #08162e;
+      border: 1px solid #24416f;
+      border-radius: 14px;
+      padding: 1rem 1rem 1.05rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.06rem;
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      background: #0b1934;
+      border: 1px solid #24416f;
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      min-height: 360px;
+    }
+
+    .price-card.featured {
+      border: 2px solid #4a7fe0;
+      transform: translateY(-2px);
+    }
+
+    .price {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .price-sub {
+      color: #b6cae9;
+      font-size: 0.94rem;
+      margin-top: -0.3rem;
+    }
+
+    .price-card ul {
+      list-style: none;
+      color: #cbd5e1;
+      font-size: 0.93rem;
+      display: grid;
+      gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .price-card li::before { content: "\2713"; color: var(--brand); margin-right: 0.4rem; }
+
+    .price-card .btn {
+      margin-top: auto;
+      width: fit-content;
+    }
+
+    .faq {
+      display: grid;
+      gap: 0.65rem;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid #24416f;
+      border-radius: 12px;
+      background: #0b1934;
+      overflow: hidden;
+    }
+
+    .faq-btn {
+      border: 0;
+      width: 100%;
+      text-align: left;
+      padding: 0.95rem 1rem;
+      background: transparent;
+      color: #ecf3ff;
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-btn span {
+      color: #b9c8e3;
+      font-weight: 600;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.22s ease;
+      color: #b9c8e3;
+      padding: 0 1rem;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 120px;
+      padding-bottom: 0.9rem;
+    }
+
+    .cta {
+      background: linear-gradient(120deg, #11389c 0%, #1f4cc0 65%, #0d2566 100%);
+      color: #fff;
+      border-radius: 22px;
+      padding: 2.2rem;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(8, 69, 160, 0.28);
+    }
+
+    .cta h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 0.5rem; }
+    .cta p { color: rgba(255, 255, 255, 0.9); margin-bottom: 1rem; }
+
+    .site-footer {
+      padding: 2.3rem 0 1.2rem;
+      margin-top: 1.4rem;
+      color: #8ca0ba;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-wrap,
+      .switch-wrap,
+      .services-top,
+      .about-shell,
+      .services-cards-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .switch-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.featured { transform: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-container" id="bgContainer" aria-hidden="true">
+    <div class="ambient-glow a"></div>
+    <div class="ambient-glow b"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="top-header">
+      <div class="container">AI websites and automations for small businesses.</div>
+    </div>
+    <nav class="container nav" aria-label="Primary">
+      <a class="logo" href="#">Velocity<span>AI</span></a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#start">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a class="btn btn-primary" href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <article class="hero-copy">
+          <div class="eyebrow">Built for Local Service Businesses</div>
+          <h1>Smart Websites. More Booked Jobs.</h1>
+          <p>
+            We build sleek conversion-focused websites, then connect AI tools that help small businesses book more jobs, answer leads faster, and follow up automatically.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">Start Your Free Trial</a>
+            <a class="btn btn-secondary" href="#contact">Contact Us</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="about-shell">
+          <aside class="about-media" aria-label="About team visual">
+            <img src="about-robot.png" alt="AI assistant visual">
+          </aside>
+          <article class="about-content">
+            <h2>About Us</h2>
+            <p>
+              We are a small, family-run team focused on helping local businesses work smarter with AI.
+              We saw how much time owners lose to missed messages and appointment follow-up, so we built
+              systems that take that pressure off your day.
+            </p>
+            <div class="about-divider"></div>
+            <div class="about-actions">
+              <a class="btn btn-secondary" href="#contact">Contact Us</a>
+            </div>
+            <p>
+              We set up websites, chatbots, and AI reception systems that answer fast, book automatically,
+              and keep every lead moving. The goal is simple: save your time and create predictable growth.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="start">
+      <div class="container">
+        <div class="switch-wrap">
+          <article class="switch-copy">
+            <h2>How It Works</h2>
+            <h3>From First Visit to Confirmed Booking,<br>Everything Runs in 3 Steps.</h3>
+            <p>
+              We build one connected flow so your business attracts, responds, and books leads without manual chaos.
+            </p>
+            <div class="switch-cta">
+              <a class="btn btn-secondary" href="#pricing">Start Your Free 7-Day Trial</a>
+            </div>
+          </article>
+
+          <aside class="switch-highlights" aria-label="How it works steps">
+            <article class="highlight-item">
+              <div class="highlight-icon" aria-hidden="true">1</div>
+              <div>
+                <strong>Attract the Right Leads</strong>
+                <span>Position your offer so qualified visitors take action quickly.</span>
+              </div>
+            </article>
+            <article class="highlight-item">
+              <div class="highlight-icon" aria-hidden="true">2</div>
+              <div>
+                <strong>Respond Instantly with AI</strong>
+                <span>Answer inquiries 24/7 so prospects do not bounce to competitors.</span>
+              </div>
+            </article>
+            <article class="highlight-item">
+              <div class="highlight-icon" aria-hidden="true">3</div>
+              <div>
+                <strong>Book + Follow Up Automatically</strong>
+                <span>Scheduling and reminders run in the background to close more jobs.</span>
+              </div>
+            </article>
+            <article class="highlight-item">
+              <div class="highlight-icon" aria-hidden="true">4</div>
+              <div>
+                <strong>Operate Consistently</strong>
+                <span>Every lead gets a response, even during busy hours and off-hours.</span>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="switch-section" id="switch">
+      <div class="container">
+        <div class="switch-wrap">
+          <article class="switch-copy">
+            <h2>Why Businesses Switch to AI</h2>
+            <h3>Your Entire Booking System, Fully Automated for You.</h3>
+            <p>
+              One simple monthly plan replaces missed calls, slow replies, and manual scheduling.
+              Your AI receptionist answers instantly, books appointments automatically, and keeps everything
+              running smoothly, giving your business consistency without adding more work to your day.
+            </p>
+            <div class="switch-cta">
+              <a class="btn btn-secondary" href="#pricing">Start Your Free 7-Day Trial</a>
+            </div>
+            <ul class="switch-list">
+              <li>Instant responses</li>
+              <li>More booked jobs</li>
+              <li>Every lead followed up</li>
+              <li>24/7 automation</li>
+            </ul>
+            <p class="switch-meta">$297/mo · Full Access Included</p>
+          </article>
+
+          <aside class="switch-media" aria-label="AI system visual">
+            <img src="robot-2.png" alt="AI assistant visual panel">
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="services-shell">
+          <div class="services-top">
+            <article class="services-intro-block">
+              <h2>Services</h2>
+              <p>
+                Helping businesses stand out with brand identity and automation systems that captivate and convert effectively.
+              </p>
+              <div class="services-actions">
+                <a class="btn btn-secondary" href="#contact">Contact Us</a>
+                <a class="btn btn-secondary" href="work.html">See Projects</a>
+              </div>
+            </article>
+
+            <aside class="services-image" aria-label="Services visual">
+              <img src="services-laptop.png" alt="Service workflow visual">
+            </aside>
+          </div>
+
+          <div class="services-cards-grid">
+            <article class="service-card">
+              <h3>Seamless Integration</h3>
+              <p>Switching systems is easy. Our AI connects to your calendar so clients book instantly with no missed calls or double bookings.</p>
+            </article>
+
+            <article class="service-card">
+              <h3>AI CRM Integration</h3>
+              <p>Automated lead management with our AI-powered CRM setup. New leads from chat or DMs are captured and routed automatically.</p>
+            </article>
+
+            <article class="service-card">
+              <h3>DM Sales Assistant</h3>
+              <p>Turn your DMs into a sales channel. AI replies instantly, shares offers, and helps close deals without manual back-and-forth.</p>
+            </article>
+
+            <article class="service-card">
+              <h3>24/7 Website Chat Support</h3>
+              <p>Never miss a customer again. We install and train an AI chatbot to handle FAQs, service info, booking, and more around the clock.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <header class="section-head">
+          <h2>Simple Packages</h2>
+          <p>Clear offers with real pricing for websites, booking automation, and AI response systems.</p>
+        </header>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Starter</h3>
+            <p class="price">$550 setup</p>
+            <p class="price-sub">+ $200/month booking system</p>
+            <ul>
+              <li>Custom starter website</li>
+              <li>Booking synced to calendar</li>
+              <li>Basic AI chat widget</li>
+              <li>Monthly support + updates</li>
+            </ul>
+            <a class="btn btn-secondary" href="#contact">Choose Starter</a>
+          </article>
+
+          <article class="price-card featured">
+            <h3>Growth</h3>
+            <p class="price">$750 setup</p>
+            <p class="price-sub">+ $350/month growth automation</p>
+            <ul>
+              <li>Conversion-focused multi-section website</li>
+              <li>AI booking + lead follow-up flows</li>
+              <li>CRM integration and routing</li>
+              <li>Priority optimization support</li>
+            </ul>
+            <a class="btn btn-primary" href="#contact">Choose Growth</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Scale</h3>
+            <p class="price">$500/month</p>
+            <p class="price-sub">AI receptionist + chat widget</p>
+            <ul>
+              <li>24/7 AI receptionist for calls/messages</li>
+              <li>Website chat widget with instant replies</li>
+              <li>Missed lead recovery + reminders</li>
+              <li>Ongoing tuning and reporting</li>
+            </ul>
+            <a class="btn btn-secondary" href="#contact">Choose Scale</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <header class="section-head">
+          <h2>Frequently Asked Questions</h2>
+        </header>
+
+        <div class="faq">
+          <article class="faq-item active">
+            <button class="faq-btn" aria-expanded="true">Do I need to switch my current website platform?<span>+</span></button>
+            <div class="faq-answer">
+              <p>No. We can rebuild or integrate with your existing setup depending on what is fastest and most stable.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-btn" aria-expanded="false">Will the AI receptionist sound robotic?<span>+</span></button>
+            <div class="faq-answer">
+              <p>No. We tune responses to match your tone and service process so it sounds natural and useful.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-btn" aria-expanded="false">Can this work for my local service niche?<span>+</span></button>
+            <div class="faq-answer">
+              <p>Yes. This framework is built for appointment and inquiry-based businesses like med spas, contractors, studios, and clinics.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-btn" aria-expanded="false">How fast can this be live for my business?<span>+</span></button>
+            <div class="faq-answer">
+              <p>Most projects launch in about 7 to 14 days depending on your content, offer clarity, and approval speed.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-btn" aria-expanded="false">Do you set up the automations for me?<span>+</span></button>
+            <div class="faq-answer">
+              <p>Yes. We handle setup, testing, and handoff so your team can use everything without technical guesswork.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta" id="contact">
+          <h2>Want More Booked Jobs Without More Manual Work?</h2>
+          <p>Tell us your business and we will map the exact website + AI automation setup you need.</p>
+          <a class="btn btn-secondary" style="background:#fff; border-color:#fff; color:#0a3ea9;" href="#contact">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 VelocityAI. Smart websites and automation for small business growth.</p>
+    </div>
+  </footer>
+
+  <script>
+    const siteHeader = document.querySelector('.site-header');
+    const heroSection = document.querySelector('.hero');
+    let heroStopY = 0;
+
+    const updateHeroStop = () => {
+      heroStopY = heroSection.offsetTop + heroSection.offsetHeight;
+    };
+
+    const updateHeaderState = () => {
+      siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+    };
+
+    updateHeroStop();
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    window.addEventListener('resize', updateHeroStop);
+
+    const bgContainer = document.getElementById('bgContainer');
+    const stars = [];
+    const starCount = 130;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 1.6 + 0.6;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      star.style.left = `${x}%`;
+      star.style.top = `${y}%`;
+      star.style.opacity = String(Math.random() * 0.5 + 0.3);
+
+      stars.push({
+        el: star,
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 0.02,
+        vy: (Math.random() - 0.5) * 0.02,
+      });
+
+      bgContainer.appendChild(star);
+    }
+
+    function animateStars() {
+      if (window.scrollY < heroStopY) {
+        for (const star of stars) {
+          star.x += star.vx;
+          star.y += star.vy;
+
+          if (star.x < 0) star.x = 100;
+          if (star.x > 100) star.x = 0;
+          if (star.y < 0) star.y = 100;
+          if (star.y > 100) star.y = 0;
+
+          star.el.style.left = `${star.x}%`;
+          star.el.style.top = `${star.y}%`;
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+
+    document.querySelectorAll('.faq-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const open = item.classList.contains('active');
+        item.classList.toggle('active', !open);
+        button.setAttribute('aria-expanded', String(!open));
+      });
+    });
+  </script>
+</body>
+</html>
