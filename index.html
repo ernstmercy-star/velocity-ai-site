@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Velocity AI - Smart Websites + Automation for Small Business</title>
+  <title>FlowAI - Smart Websites + Automation for Small Business</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -87,6 +88,29 @@
       height: 2px;
       border-radius: 50%;
       background: #ffffff;
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.85; }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 68px;
+      height: 2.4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(34, 211, 238, 0), rgba(103, 232, 249, 1));
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.98), 0 0 26px rgba(56, 189, 248, 0.78);
+      transform: rotate(var(--angle, 20deg));
+      animation: shooting-star-flight 1.05s ease-out forwards;
+    }
+
+    @keyframes shooting-star-flight {
+      0% { opacity: 0; transform: translate(0, 0) rotate(var(--angle, 20deg)); }
+      12% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--dx, 210px), var(--dy, 95px)) rotate(var(--angle, 20deg)); }
     }
 
     .site-header {
@@ -186,6 +210,26 @@
 
     #services {
       padding-top: 6.8rem;
+    }
+
+    .about-bridge {
+      padding: 0.3rem 0 0;
+    }
+
+    .about-bridge-line {
+      max-width: 860px;
+      margin: 0 auto;
+      border: 1px solid #24416f;
+      border-left: 4px solid #4a7fe0;
+      border-radius: 8px;
+      padding: 0.72rem 1rem;
+      text-align: left;
+      color: #d7e5ff;
+      background: #0a1a34;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     .hero-wrap {
@@ -430,7 +474,7 @@
     }
 
     .services-intro-block {
-      background: #08162e;
+      background: #000000;
       border: 1px solid #24416f;
       border-radius: 14px;
       padding: 1.15rem 1.2rem;
@@ -538,7 +582,7 @@
     }
 
     .service-card {
-      background: #08162e;
+      background: #000000;
       border: 1px solid #24416f;
       border-radius: 14px;
       padding: 1rem 1rem 1.05rem;
@@ -696,7 +740,7 @@
     }
   </style>
 </head>
-<body>
+<body id="top">
   <div class="bg-container" id="bgContainer" aria-hidden="true">
     <div class="ambient-glow a"></div>
     <div class="ambient-glow b"></div>
@@ -707,7 +751,7 @@
       <div class="container">AI websites and automations for small businesses.</div>
     </div>
     <nav class="container nav" aria-label="Primary">
-      <a class="logo" href="#">Velocity<span>AI</span></a>
+      <a class="logo" href="#top">Flow<span>AI</span></a>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#start">How It Works</a></li>
@@ -729,11 +773,17 @@
             We build sleek conversion-focused websites, then connect AI tools that help small businesses book more jobs, answer leads faster, and follow up automatically.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#pricing">Start Your Free Trial</a>
+            <a class="btn btn-primary" href="#contact">Start Your Free Trial</a>
             <a class="btn btn-secondary" href="#contact">Contact Us</a>
           </div>
         </article>
 
+      </div>
+    </section>
+
+    <section class="about-bridge" aria-label="Business focus">
+      <div class="container">
+        <p class="about-bridge-line">Modern tools. Real support. Built to keep your business moving.</p>
       </div>
     </section>
 
@@ -746,17 +796,18 @@
           <article class="about-content">
             <h2>About Us</h2>
             <p>
-              We are a small, family-run team focused on helping local businesses work smarter with AI.
-              We saw how much time owners lose to missed messages and appointment follow-up, so we built
-              systems that take that pressure off your day.
+              I help local service businesses integrate AI into their everyday workflow without making things complicated.
+              From first contact to final follow-up, I set up practical systems that save time, reduce missed opportunities,
+              and keep your operations organized.
             </p>
             <div class="about-divider"></div>
             <div class="about-actions">
               <a class="btn btn-secondary" href="#contact">Contact Us</a>
             </div>
             <p>
-              We set up websites, chatbots, and AI reception systems that answer fast, book automatically,
-              and keep every lead moving. The goal is simple: save your time and create predictable growth.
+              I build conversion-focused websites, smart chat and booking flows, and automated follow-up tools
+              that keep your business current with how customers communicate today. The goal is to keep you up to date,
+              easier to reach, and consistently moving forward as technology changes.
             </p>
           </article>
         </div>
@@ -773,7 +824,7 @@
               We build one connected flow so your business attracts, responds, and books leads without manual chaos.
             </p>
             <div class="switch-cta">
-              <a class="btn btn-secondary" href="#pricing">Start Your Free 7-Day Trial</a>
+              <a class="btn btn-secondary" href="#contact">Start Your Free 7-Day Trial</a>
             </div>
           </article>
 
@@ -823,7 +874,7 @@
               running smoothly, giving your business consistency without adding more work to your day.
             </p>
             <div class="switch-cta">
-              <a class="btn btn-secondary" href="#pricing">Start Your Free 7-Day Trial</a>
+              <a class="btn btn-secondary" href="#contact">Start Your Free 7-Day Trial</a>
             </div>
             <ul class="switch-list">
               <li>Instant responses</li>
@@ -904,33 +955,33 @@
               <li>Basic AI chat widget</li>
               <li>Monthly support + updates</li>
             </ul>
-            <a class="btn btn-secondary" href="#contact">Choose Starter</a>
+            <a class="btn btn-secondary" href="mailto:team@apexflowstudio.com?subject=Starter%20Package%20Inquiry">Choose Starter</a>
           </article>
 
           <article class="price-card featured">
             <h3>Growth</h3>
-            <p class="price">$750 setup</p>
-            <p class="price-sub">+ $350/month growth automation</p>
+            <p class="price">$750/month</p>
+            <p class="price-sub">AI receptionist + chat widget + booking system</p>
             <ul>
-              <li>Conversion-focused multi-section website</li>
-              <li>AI booking + lead follow-up flows</li>
-              <li>CRM integration and routing</li>
-              <li>Priority optimization support</li>
+              <li>AI receptionist for calls and messages</li>
+              <li>Website chat widget with instant replies</li>
+              <li>Booking system synced to your calendar</li>
+              <li>Optional website build included if needed</li>
             </ul>
-            <a class="btn btn-primary" href="#contact">Choose Growth</a>
+            <a class="btn btn-primary" href="mailto:team@apexflowstudio.com?subject=Growth%20Package%20Inquiry">Choose Growth</a>
           </article>
 
           <article class="price-card">
             <h3>Scale</h3>
-            <p class="price">$500/month</p>
-            <p class="price-sub">AI receptionist + chat widget</p>
+            <p class="price">$500 setup</p>
+            <p class="price-sub">New website setup only</p>
             <ul>
-              <li>24/7 AI receptionist for calls/messages</li>
-              <li>Website chat widget with instant replies</li>
-              <li>Missed lead recovery + reminders</li>
-              <li>Ongoing tuning and reporting</li>
+              <li>New website design and build</li>
+              <li>Core pages set up and launched</li>
+              <li>Mobile-friendly layout</li>
+              <li>Basic contact form setup</li>
             </ul>
-            <a class="btn btn-secondary" href="#contact">Choose Scale</a>
+            <a class="btn btn-secondary" href="mailto:team@apexflowstudio.com?subject=Scale%20Package%20Inquiry">Choose Scale</a>
           </article>
         </div>
       </div>
@@ -982,7 +1033,7 @@
         <div class="cta" id="contact">
           <h2>Want More Booked Jobs Without More Manual Work?</h2>
           <p>Tell us your business and we will map the exact website + AI automation setup you need.</p>
-          <a class="btn btn-secondary" style="background:#fff; border-color:#fff; color:#0a3ea9;" href="#contact">Contact Us</a>
+          <a class="btn btn-secondary" style="background:#fff; border-color:#fff; color:#0a3ea9;" href="mailto:team@apexflowstudio.com?subject=New%20Website%20Inquiry">Contact Us</a>
         </div>
       </div>
     </section>
@@ -990,30 +1041,20 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2026 VelocityAI. Smart websites and automation for small business growth.</p>
+      <p>&copy; 2026 FlowAI. Smart websites and automation for small business growth.</p>
     </div>
   </footer>
 
   <script>
     const siteHeader = document.querySelector('.site-header');
-    const heroSection = document.querySelector('.hero');
-    let heroStopY = 0;
-
-    const updateHeroStop = () => {
-      heroStopY = heroSection.offsetTop + heroSection.offsetHeight;
-    };
-
     const updateHeaderState = () => {
       siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
     };
 
-    updateHeroStop();
     updateHeaderState();
     window.addEventListener('scroll', updateHeaderState, { passive: true });
-    window.addEventListener('resize', updateHeroStop);
 
     const bgContainer = document.getElementById('bgContainer');
-    const stars = [];
     const starCount = 130;
 
     for (let i = 0; i < starCount; i++) {
@@ -1027,37 +1068,46 @@
       star.style.left = `${x}%`;
       star.style.top = `${y}%`;
       star.style.opacity = String(Math.random() * 0.5 + 0.3);
-
-      stars.push({
-        el: star,
-        x,
-        y,
-        vx: (Math.random() - 0.5) * 0.02,
-        vy: (Math.random() - 0.5) * 0.02,
-      });
+      star.style.animationDuration = `${(Math.random() * 2.2 + 1.6).toFixed(2)}s`;
+      star.style.animationDelay = `${(Math.random() * 3).toFixed(2)}s`;
 
       bgContainer.appendChild(star);
     }
 
-    function animateStars() {
-      if (window.scrollY < heroStopY) {
-        for (const star of stars) {
-          star.x += star.vx;
-          star.y += star.vy;
+    let lastScrollY = window.scrollY;
+    let lastShotAt = 0;
 
-          if (star.x < 0) star.x = 100;
-          if (star.x > 100) star.x = 0;
-          if (star.y < 0) star.y = 100;
-          if (star.y > 100) star.y = 0;
+    const spawnShootingStar = () => {
+      const shootingStar = document.createElement('div');
+      const directionPresets = [
+        { dx: 220, dy: 95, angle: 20 },
+        { dx: -210, dy: 90, angle: 160 },
+        { dx: 190, dy: -80, angle: -22 },
+        { dx: -185, dy: -72, angle: 202 },
+      ];
+      const choice = directionPresets[Math.floor(Math.random() * directionPresets.length)];
+      shootingStar.className = 'shooting-star';
+      shootingStar.style.left = `${Math.random() * 78 + 8}%`;
+      shootingStar.style.top = `${Math.random() * 32 + 6}%`;
+      shootingStar.style.setProperty('--dx', `${choice.dx}px`);
+      shootingStar.style.setProperty('--dy', `${choice.dy}px`);
+      shootingStar.style.setProperty('--angle', `${choice.angle}deg`);
+      bgContainer.appendChild(shootingStar);
+      shootingStar.addEventListener('animationend', () => shootingStar.remove(), { once: true });
+    };
 
-          star.el.style.left = `${star.x}%`;
-          star.el.style.top = `${star.y}%`;
-        }
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      const scrollingDown = currentY > lastScrollY;
+      const now = performance.now();
+
+      if (scrollingDown && currentY > 24 && now - lastShotAt > 1150) {
+        spawnShootingStar();
+        lastShotAt = now;
       }
-      requestAnimationFrame(animateStars);
-    }
 
-    animateStars();
+      lastScrollY = currentY;
+    }, { passive: true });
 
     document.querySelectorAll('.faq-btn').forEach((button) => {
       button.addEventListener('click', () => {
