@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlowAI - Projects</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #02050d;
+      --surface: #000000;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, 0.14);
+      --brand: #11389c;
+      --brand-2: #0d2566;
+      --max: 1040px;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: "Manrope", sans-serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .bg-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+
+    .ambient-glow.a {
+      width: 560px;
+      height: 560px;
+      left: 45%;
+      top: 8%;
+      background: radial-gradient(circle, rgba(17, 56, 156, 0.2), transparent 70%);
+    }
+
+    .ambient-glow.b {
+      width: 420px;
+      height: 420px;
+      right: -12%;
+      bottom: 10%;
+      background: radial-gradient(circle, rgba(74, 127, 224, 0.18), transparent 70%);
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #ffffff;
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.85; }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s ease, backdrop-filter 0.2s ease, border-color 0.2s ease;
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(2, 5, 13, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .top-header {
+      border-bottom: 0;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+    }
+
+    .top-header .container {
+      padding: 0.35rem 0 0.15rem;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+      gap: 1rem;
+    }
+
+    .logo {
+      text-decoration: none;
+      font-weight: 800;
+      font-family: "Manrope", sans-serif;
+      font-size: 1.25rem;
+      color: #f8fafc;
+    }
+
+    .logo span { color: #8cb5ff; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: #ffffff; }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.88rem 1.45rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--brand) 0%, var(--brand-2) 100%);
+      color: #fff;
+      box-shadow: 0 12px 34px rgba(11, 95, 255, 0.28);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    main {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      padding: 7rem 0 2.4rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #c7d9ff;
+      background: rgba(17, 56, 156, 0.22);
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      margin-bottom: 0.75rem;
+      background: linear-gradient(180deg, #ffffff 0%, #c4d4ff 45%, #6f97ea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 56ch;
+      margin: 0 auto;
+    }
+
+    .projects {
+      padding: 1rem 0 5rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid #24416f;
+      border-radius: 14px;
+      padding: 1rem;
+      text-decoration: none;
+      color: #e5e7eb;
+      display: block;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      min-height: 120px;
+    }
+
+    .project-card:hover {
+      transform: translateY(-2px);
+      border-color: #4a7fe0;
+    }
+
+    .project-card h3 {
+      font-size: 1rem;
+      margin-top: 0.8rem;
+      margin-bottom: 0.3rem;
+      color: #dbeafe;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 8px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-container" id="bgContainer" aria-hidden="true">
+    <div class="ambient-glow a"></div>
+    <div class="ambient-glow b"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="top-header">
+      <div class="container">AI websites and automations for small businesses.</div>
+    </div>
+    <nav class="container nav" aria-label="Primary">
+      <a class="logo" href="index.html#top">Flow<span>AI</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#start">How It Works</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+      </ul>
+      <a class="btn btn-primary" href="index.html#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Our Projects</div>
+        <h1>Recent Work</h1>
+        <p>A collection of conversion-focused websites and AI automation systems we've built.</p>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="projects-grid">
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-1.png" alt="Web Designer & Developer Portfolio">
+            <h3>Web Designer & Developer</h3>
+            <p>Premium web design, development, and SEO services to help your business stand out.</p>
+          </a>
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-2.png" alt="Mercy Adventures - For the Adventurous Souls">
+            <h3>Mercy Adventures</h3>
+            <p>For the adventurous souls. Professional hiking and mountain exploration guides.</p>
+          </a>
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-3.png" alt="Brand Scaling and Paid Ads">
+            <h3>Brand Scaling</h3>
+            <p>Ready to scale your brand with paid ads? Achieve ground-breaking growth and profitability.</p>
+          </a>
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-4.png" alt="MedExpert Healthcare Platform">
+            <h3>MedExpert</h3>
+            <p>Get high-quality service with quality care. Take control of your health through our platform.</p>
+          </a>
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-5.png" alt="HustleHub Booking Booster">
+            <h3>HustleHub Booking Booster</h3>
+            <p>Grow faster with AI-driven analytics and seamless cloud integrations for your business.</p>
+          </a>
+          <a class="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="project-6.png" alt="A Mano Italian Restaurant">
+            <h3>A Mano Italian</h3>
+            <p>Handcrafted Italian dishes. A traditional Italian bistro focused on seasonal ingredients.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const siteHeader = document.querySelector('.site-header');
+    const updateHeaderState = () => {
+      siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+
+    const bgContainer = document.getElementById('bgContainer');
+    const starCount = 130;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 1.6 + 0.6;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.opacity = String(Math.random() * 0.5 + 0.3);
+      star.style.animationDuration = `${(Math.random() * 2.2 + 1.6).toFixed(2)}s`;
+      star.style.animationDelay = `${(Math.random() * 3).toFixed(2)}s`;
+      bgContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>
